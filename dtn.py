@@ -6,6 +6,7 @@ import sys
 import uuid
 import time
 import pickle
+from haversine import haversine, Unit
 from message import Message
 
 class Dtn:
@@ -59,6 +60,12 @@ class Dtn:
                 print(3-i)
             print("terminated")
 
+    #menghitung jarak
+    def calculateJarak(self, src, dst):
+        return haversine(src, dst)
+
+
+
     # handle received message
     def message_receiver(self):
         while self.running:
@@ -68,6 +75,11 @@ class Dtn:
                 message = pickle.loads(data)
                 if(message.id not in self.received_msg and message.id not in self.broadcast_queue):
                     if(message.destination_id == self.my_id):
+                        src = (message.latitude, message.longitude)
+                        dst = (self.latitude, self.longitude)
+                        if(self.calculateJarak(src,dst) > message.jarak):
+                            print("message out of jarak")
+                            continue
                         print("received a message from: " + message.source_id)
                         print("message: " + message.message)
                         self.received_msg[message.id] = message
