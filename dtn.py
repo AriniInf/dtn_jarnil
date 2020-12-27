@@ -60,12 +60,6 @@ class Dtn:
                 print(3-i)
             print("terminated")
 
-    #menghitung jarak
-    def calculateJarak(self, src, dst):
-        return haversine(src, dst)
-
-
-
     # handle received message
     def message_receiver(self):
         while self.running:
@@ -78,7 +72,6 @@ class Dtn:
                         src = (message.latitude, message.longitude)
                         dst = (self.latitude, self.longitude)
                         if(self.calculateJarak(src,dst) > message.jarak):
-                            print("message out of jarak")
                             continue
                         print("received a message from: " + message.source_id)
                         print("message: " + message.message)
@@ -134,3 +127,6 @@ class Dtn:
 
     def increase_message_count(self):
         self.message_count = self.message_count + 1
+
+    def calculateJarak(self, src, dst):
+        return haversine(src, dst)
