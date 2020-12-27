@@ -13,8 +13,8 @@ while True:
             # TODO: tambahkan input lifetime dan maks jarak
             dst = input("send message to: ")
             msg = input("your message is: ")
-            jarak = input("input jarak: ")
-            lifetime = input("input lifetime: ")
+            jarak = int(input("input jarak: "))
+            lifetime = int(input("input lifetime: "))
 
             myDtn.add_message(dst, msg, jarak, lifetime)
     except KeyboardInterrupt:
