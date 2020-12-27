@@ -6,13 +6,14 @@ class Message:
     longitude = 0
     hop = 0
     lifetime = 0
+    jarak = 0
     id = ""
     destination_id = ""
     source_id = ""
     message = ""
     is_valid = True
     
-    def __init__(self, latitude, longitude, lifetime, id, destination_id, source_id, message):
+    def __init__(self, latitude, longitude, lifetime, id, destination_id, source_id, message, jarak):
         self.latitude = latitude
         self.longitude = longitude
         self.lifetime = lifetime
