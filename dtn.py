@@ -35,7 +35,7 @@ class Dtn:
     sender.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
     sender.setblocking(0)
 
-    def __init__(self, user_id, longitude, latitude):
+    def __init__(self, user_id, latitude, longitude):
         
         self.my_id = user_id
         self.longitude = longitude
@@ -129,4 +129,6 @@ class Dtn:
         self.message_count = self.message_count + 1
 
     def calculateJarak(self, src, dst):
-        return haversine(src, dst)
+        distance =  haversine(src, dst)
+        print(distance)
+        return distance

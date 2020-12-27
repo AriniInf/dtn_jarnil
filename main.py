@@ -1,9 +1,11 @@
 import sys
 from dtn import Dtn
+
 user_id = input("input username : ")
-longitude = float(input("input longitude :"))
 latitude = float(input("input latitude: "))
-myDtn = Dtn(user_id, longitude, latitude)
+longitude = float(input("input longitude :"))
+
+myDtn = Dtn(user_id, latitude, longitude)
 while True:
     try:
         
