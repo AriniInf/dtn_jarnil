@@ -34,9 +34,12 @@ class Dtn:
     sender.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
     sender.setblocking(0)
 
-    def __init__(self, user_id):
+    def __init__(self, user_id, longitude, latitude):
         
         self.my_id = user_id
+        self.longitude = longitude
+        self.latitude = latitude
+
         print("your id: " + self.my_id)
         self.running = True
         sys.stdout.flush()
@@ -104,7 +107,7 @@ class Dtn:
         print("message validator terminated")
 
     def add_message(self, dst, msg, jarak, lifetime):
-        message = Message(0, 0, lifetime, self.my_id + "/" + str(self.message_count), dst, self.my_id, msg, jarak)
+        message = Message(self.latitude, self.longitude, lifetime, self.my_id + "/" + str(self.message_count), dst, self.my_id, msg, jarak)
         self.increase_message_count()
         self.broadcast_queue[message.id] = message
         print("added:")
