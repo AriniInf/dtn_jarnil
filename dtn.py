@@ -16,7 +16,7 @@ class Dtn:
     port = 3000
     broadcast_queue = {}
     received_msg = {}
-    my_id = uuid.uuid4().hex
+    #my_id = uuid.uuid4().hex
     message_count = 0
     running = True
     
@@ -34,9 +34,10 @@ class Dtn:
     sender.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
     sender.setblocking(0)
 
-    def __init__(self):
+    def __init__(self, user_id):
+        
+        self.my_id = user_id
         print("your id: " + self.my_id)
-
         self.running = True
         sys.stdout.flush()
         thread_message_receiver = threading.Thread(target=self.message_receiver);
@@ -60,7 +61,7 @@ class Dtn:
         while self.running:
             ready = select.select([self.receiver], [], [], 1)
             if ready[0]:
-                data, address = self.receiver.recvfrom(255)
+                data, address = self.receiver.recvfrom(4096)
                 message = pickle.loads(data)
                 if(message.id not in self.received_msg and message.id not in self.broadcast_queue):
                     if(message.destination_id == self.my_id):
@@ -102,8 +103,8 @@ class Dtn:
                     message.invalidate()
         print("message validator terminated")
 
-    def add_message(self, dst, msg):
-        message = Message(0, 0, 60, self.my_id + "/" + str(self.message_count), dst, self.my_id, msg)
+    def add_message(self, dst, msg, jarak, lifetime):
+        message = Message(0, 0, lifetime, self.my_id + "/" + str(self.message_count), dst, self.my_id, msg, jarak)
         self.increase_message_count()
         self.broadcast_queue[message.id] = message
         print("added:")

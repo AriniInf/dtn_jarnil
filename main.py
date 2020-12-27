@@ -1,9 +1,10 @@
 import sys
 from dtn import Dtn
-
-myDtn = Dtn()
+user_id = input("input username : ")
+myDtn = Dtn(user_id)
 while True:
     try:
+        
         opt = input("1) print received messages\n2) send a message\n(1/2): ")
         # TODO: tambahkan opsi update fake GPS
         if(opt == "1"):
@@ -12,7 +13,10 @@ while True:
             # TODO: tambahkan input lifetime dan maks jarak
             dst = input("send message to: ")
             msg = input("your message is: ")
-            myDtn.add_message(dst, msg)
+            jarak = input("input jaralk: ")
+            lifetime = input("input lifetime: ")
+
+            myDtn.add_message(dst, msg, jarak, lifetime)
     except KeyboardInterrupt:
         myDtn.__del__()
         del myDtn
