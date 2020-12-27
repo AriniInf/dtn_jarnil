@@ -71,7 +71,7 @@ class Dtn:
                     if(message.destination_id == self.my_id):
                         src = (message.latitude, message.longitude)
                         dst = (self.latitude, self.longitude)
-                        if(self.calculateJarak(src,dst) > message.jarak):
+                        if(self.calculateJarak(src,dst) < message.jarak):
                             continue
                         print("received a message from: " + message.source_id)
                         print("message: " + message.message)
